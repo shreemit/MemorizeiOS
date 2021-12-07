@@ -11,12 +11,12 @@ struct ContentView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
 
     var body: some View {
-        VStack{
+        VStack {
             HStack {
-                Text("Memorize").font(.largeTitle).padding(/*@START_MENU_TOKEN@*/.leading, 8.0/*@END_MENU_TOKEN@*/)
+                Text("Memorize").font(.largeTitle).padding(/*@START_MENU_TOKEN@*/ .leading, 8.0/*@END_MENU_TOKEN@*/)
                 Spacer()
             }
-            
+
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]) {
                     ForEach(viewModel.cards) { card in
@@ -28,7 +28,7 @@ struct ContentView: View {
             }
         }
     }
-} 
+}
 
 struct CardView: View {
     let card: MemoryGame<String>.Card
@@ -39,6 +39,8 @@ struct CardView: View {
                 shape.fill().foregroundColor(.white)
                 shape.strokeBorder(lineWidth: 3)
                 Text(card.content).font(.largeTitle)
+            } else if card.isMatched {
+				shape.opacity(0)
             } else {
                 shape.fill().foregroundColor(.red)
             }

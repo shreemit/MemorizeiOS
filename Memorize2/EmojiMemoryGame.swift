@@ -7,7 +7,7 @@
 
 import Foundation
 
-class EmojiMemoryGame: ObservableObject {
+class EmojiMemoryGame: ObservableObject { // ViewModel
     static let emojis = ["😂", "😅", "😇", "☹️", "😱", "😃", "😴", "🥶", "🙄", "😈", "😵", "😜", "😷"]
     static func createMemoryGame() -> MemoryGame<String> {
         MemoryGame<String>(numberOfPairs: 8) { pairIndex in
