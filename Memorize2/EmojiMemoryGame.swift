@@ -7,17 +7,19 @@
 
 import Foundation
 
-func makeCardContent(index: Int) -> String {
-    return "😀"
-}
-
-class EmojiMemoryGame {
+class EmojiMemoryGame: ObservableObject {
     static let emojis = ["😂", "😅", "😇", "☹️", "😱", "😃", "😴", "🥶", "🙄", "😈", "😵", "😜", "😷"]
     static func createMemoryGame() -> MemoryGame<String> {
-        MemoryGame(numberOfPairs: 4) { pairIndex in
+        MemoryGame<String>(numberOfPairs: 8) { pairIndex in
             emojis[pairIndex]
         }
     }
-
-    private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
+    @Published private var model: MemoryGame<String> = EmojiMemoryGame.createMemoryGame()
+    var cards: Array<MemoryGame<String>.Card> {
+        model.cards
+    }
+    
+    func choose(_ card: MemoryGame<String>.Card) {
+        model.choose(card)
+    }
 }

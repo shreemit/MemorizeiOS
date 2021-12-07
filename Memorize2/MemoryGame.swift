@@ -14,17 +14,29 @@ struct MemoryGame<CardContent> {
         cards = Array<Card>()
         for pairIndex in 0 ..< numberOfPairs {
             let content: CardContent = createCardContent(pairIndex)
-                cards.append(Card(content: content))
-            cards.append(Card(content: content))
+            cards.append(Card(id: pairIndex * 2, content: content))
+            cards.append(Card(id: pairIndex * 2 + 1, content: content))
         }
         // Add numberOfPairs of Cards * 2 into cards arrays
     }
 
-    func choose(_ card: Card) {
+    mutating func choose(_ card: Card) {
+        let choosenIndex = index(of: card)
+        cards[choosenIndex].isFaceUp.toggle()
     }
 
-    struct Card {
-        var isFaceUp: Bool = false
+    func index(of choosedCard: Card) -> Int {
+        for index in 0 ..< cards.count {
+            if cards[index].id == choosedCard.id {
+                return index
+            }
+        }
+        return 0
+    }
+
+    struct Card: Identifiable {
+        var id: Int
+        var isFaceUp: Bool = true
         var isMatched: Bool = false
         var content: CardContent
     }
